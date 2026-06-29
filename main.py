@@ -5,7 +5,7 @@ import powershell
 
 def main() -> None:
     with powershell.PowerShell() as pwsh:
-        proc = pwsh.execute_command("Get-Process -Name explorer")
+        proc = pwsh.execute_script("Get-Process -Name explorer")
         id = pwsh.get_str_property(proc, "Id")
         print(f"Explorer process ID: {id}")
 
