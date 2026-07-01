@@ -530,7 +530,7 @@ class CustomPSHostRawUserInterface(System.Management.Automation.Host.PSHostRawUs
             control_key_state |= ControlKeyStates.NumLockOn
 
         return KeyInfo(
-            int(console_key_info.Key),  # Virtual key code
+            console_key_info.Key,  # Virtual key code
             console_key_info.KeyChar,  # Character representation
             control_key_state,  # Modifier flags
             True,  # KeyDown=True (always)
