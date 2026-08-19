@@ -4,7 +4,7 @@ import os
 import pathlib
 import sys
 import types
-from typing import Any, overload
+from typing import Any, Self, overload
 
 import pwinput
 import pythonnet
@@ -24,22 +24,22 @@ automation_root = win_dir / "Microsoft.NET" / "assembly" / "GAC_MSIL" / "System.
 
 automation_dll = str(next(automation_root.rglob("System.Management.Automation.dll")))
 
-import clr  # noqa: E402
+import clr
 
 clr.AddReference(automation_dll)
 
-import System  # noqa: E402
-import System.Management.Automation.Host  # noqa: E402
-import System.Management.Automation.Runspaces  # noqa: E402
-from System import ConsoleColor  # noqa: E402
-from System.Collections.Generic import (  # noqa: E402
+import System
+import System.Management.Automation.Host
+import System.Management.Automation.Runspaces
+from System import ConsoleColor
+from System.Collections.Generic import (
     Dictionary,
 )
-from System.Collections.ObjectModel import (  # noqa: E402
+from System.Collections.ObjectModel import (
     Collection,
 )
-from System.Globalization import CultureInfo  # noqa: E402
-from System.Management.Automation import (  # noqa: E402
+from System.Globalization import CultureInfo
+from System.Management.Automation import (
     InformationRecord,
     ProgressRecord,
     ProgressRecordType,
@@ -48,7 +48,7 @@ from System.Management.Automation import (  # noqa: E402
     PSCredentialUIOptions,
     PSObject,
 )
-from System.Management.Automation.Host import (  # noqa: E402
+from System.Management.Automation.Host import (
     BufferCell,
     BufferCellType,
     ChoiceDescription,
@@ -62,7 +62,7 @@ from System.Management.Automation.Host import (  # noqa: E402
     Rectangle,
     Size,
 )
-from System.Security import SecureString  # noqa: E402
+from System.Security import SecureString
 
 
 class CustomPSHost(System.Management.Automation.Host.PSHost):
@@ -103,23 +103,18 @@ class CustomPSHost(System.Management.Automation.Host.PSHost):
 
     def EnterNestedPrompt(self) -> None:
         """Requests a nested interactive prompt session"""
-        pass
 
     def ExitNestedPrompt(self) -> None:
         """Exits a nested interactive prompt session"""
-        pass
 
     def NotifyBeginApplication(self) -> None:
         """Called before executing external process"""
-        pass
 
     def NotifyEndApplication(self) -> None:
         """Called after external process completes"""
-        pass
 
     def SetShouldExit(self, exit_code: int) -> None:
         """Informs host that PowerShell wants to exit"""
-        pass
 
 
 class CustomPSHostUI(System.Management.Automation.Host.PSHostUserInterface):
@@ -128,7 +123,7 @@ class CustomPSHostUI(System.Management.Automation.Host.PSHostUserInterface):
     __namespace__ = "System.Management.Automation.Host"
 
     def __init__(self) -> None:
-        super(CustomPSHostUI, self).__init__()
+        super().__init__()
         self._raw_ui = CustomPSHostRawUserInterface()
         self._supports_virtual_terminal = False
         self._progress: rich.progress.Progress | None = None
@@ -666,7 +661,7 @@ class PowerShell:
         self.pwsh = System.Management.Automation.PowerShell.Create()
         self.pwsh.Runspace = runspace
 
-    def __enter__(self) -> PowerShell:
+    def __enter__(self) -> Self:
         return self
 
     def __exit__(
