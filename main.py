@@ -13,7 +13,9 @@ def main() -> None:
 if __name__ == "__main__":
     try:
         main()
-    except Exception as e:
+    except KeyboardInterrupt:
+        pass
+    except Exception as e:  # noqa: BLE001
         print(e)
     finally:
         print("Press <Enter> to exit...")
